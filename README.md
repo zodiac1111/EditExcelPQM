@@ -42,7 +42,7 @@ From [VSCode extensions market](https://marketplace.visualstudio.com/items?itemN
 * On some systems the plugin opens Excel in background mode and I'm not able to do it visible.
 * (2020-10-24) After VSCode Electron update plugin fails to start and asks for recompilation of native node modules (winax)
 
-## Requirements for 1.1.7
+## Requirements for 1.1.8
 * VSCode ^1.92.0
 * Windows
 * MS Excel ^2016 - cause the plugin uses AxtiveXObject to open xlsx and extract data
@@ -62,3 +62,5 @@ When Electrorn under VSCode updates, you need to recompile this plugin, because 
 10) Run `npm install` to download and install all plugin's depenencies 
 11) Run NPM scritp `npm run build_vscode_extension`
 12) Run NPM scritp `npm run pack_extension`
+
+The compiled extension needs to be manually installed into vscode: https://github.com/zodiac1111/EditExcelPQM/releases
