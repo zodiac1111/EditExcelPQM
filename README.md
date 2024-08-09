@@ -18,6 +18,7 @@ Get Electron version of your VSCode via Help->About
 * 1.1.1 supports Electron 7.2.1, NODE_MODULE_VERSION 75
 * 1.1.5 supports Electron 9.2.1, NODE_MODULE_VERSION 80
 * 1.1.6 supports Electron 11.3.0, NODE_MODULE_VERSION 85
+* 1.1.7 supports Electron 19.0.7, NODE_MODULE_VERSION ??
 
 ## Features
 * Export all M queries from xlsx/xlsm file to *.m file
@@ -50,13 +51,14 @@ From [VSCode extensions market](https://marketplace.visualstudio.com/items?itemN
 ## How to build it yourself
 When Electrorn under VSCode updates, you need to recompile this plugin, because it uses native node module winax to access Windows COM api to interface with MS Excel via OLE. You need to do the following
 1) Clone this project from github
-2) Install Visual Studio C++ compiller for windows
+2) Install Visual Studio C++ compiller for windows ref:[msc](https://visualstudio.microsoft.com/vs/features/cplusplus/)
 3) Run VSCode
 4) Go to Help -> About 
 5) Remember the Electron version
 6) Open file package.json of this project
-7) Find task "build_winax_for_vscode" in package.json
-8) Put the version after "--target=". For instance, --target=11.3.0
+7) Find task `build_winax_for_vscode` in package.json
+8) Put the version after `--target=`. For instance, --target=11.3.0
 9) Open terminal in VSCode
-10) Run "npm install" to download and install all plugin's depenencies 
-11) Run NPM scritp "build_vscode_extension"
+10) Run `npm install` to download and install all plugin's depenencies 
+11) Run NPM scritp `npm run build_vscode_extension`
+12) Run NPM scritp `npm run pack_extension`
