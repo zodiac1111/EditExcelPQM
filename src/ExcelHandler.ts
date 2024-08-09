@@ -142,11 +142,20 @@ export class PowerQueryMCodeReader implements IDisposable {
     exportToFile(): void {
         console.log("Save to file");
         let buffer: string[] = [];
-        for (let [name, query] of this.queries) {
-            let newLine = this.delimiter1 + name + this.delimiter2 + query + "\n\n";
-            buffer.push(newLine);
+        let mFolder: string = this.pqmFileName;
+
+        if (!fs.existsSync(mFolder)) {
+            fs.mkdirSync(mFolder);
         }
-        fs.writeFileSync(this.pqmFileName, buffer.join("")), "utf8";
+
+        for (let [name, query] of this.queries) {
+            let subQueryFlieName: string = `${this.pqmFileName}/${name}.m`;
+           
+            let newLine = this.delimiter1 + name + this.delimiter2 + query + "\n\n";
+            // buffer.push(newLine);
+            fs.writeFileSync(subQueryFlieName, newLine), "utf8";
+        }
+        // fs.writeFileSync(this.pqmFileName, buffer.join("")), "utf8";
     }
 
     importFromFile(): void {
