@@ -19,6 +19,7 @@ Get Electron version of your VSCode via Help->About
 * 1.1.5 supports Electron 9.2.1, NODE_MODULE_VERSION 80
 * 1.1.6 supports Electron 11.3.0, NODE_MODULE_VERSION 85
 * 1.1.7 supports Electron 19.0.7, NODE_MODULE_VERSION ??
+* 1.1.8 supports Electron 30.1.2
 
 ## Features
 * Export all M queries from xlsx/xlsm file to *.m file
