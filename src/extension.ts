@@ -18,7 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
 				 "version from my repo or change electron version in nmp task build_winax_for_vscode " +
 				 "and then run in Windows command line \n" +
 				 "nmp build_vscode_extension && nmp pack_extension\n" +
-				 "so the error is....\n" + e.message);
+				 "so the error is....\n" + e);
 		return;
 	}
 
