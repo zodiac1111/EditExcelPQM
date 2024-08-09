@@ -43,7 +43,7 @@ From [VSCode extensions market](https://marketplace.visualstudio.com/items?itemN
 * (2020-10-24) After VSCode Electron update plugin fails to start and asks for recompilation of native node modules (winax)
 
 ## Requirements for 1.1.7
-* VSCode ^1.54.1
+* VSCode ^1.92.0
 * Windows
 * MS Excel ^2016 - cause the plugin uses AxtiveXObject to open xlsx and extract data
 * It takes ~10 seconds for plugin to startup and show menu items
