@@ -6,3 +6,4 @@ src/test/
 .vscodeignore
 .eslintrc.json
 .gitignore
+editexcelpqm*.vsix
