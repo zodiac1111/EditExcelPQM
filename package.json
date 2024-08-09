@@ -2,7 +2,7 @@
 	"name": "editexcelpqm",
 	"displayName": "EditExcelPQM",
 	"description": "Editor for Power Query Code inside xlsx files",
-	"version": "1.1.7",
+	"version": "1.1.8",
 	"license": "SEE LICENSE IN LICENSE.md",
 	"keywords": [
 		"power query m",
@@ -13,7 +13,7 @@
 	],
 	"icon": "editexcelpqm_icon.png",
 	"engines": {
-		"vscode": "^1.73.0"
+		"vscode": "^1.92.0"
 	},
 	"categories": [
 		"Other"
@@ -85,7 +85,7 @@
 	},
 	"scripts": {
 		"build_console_app": "npm rebuild",
-		"build_winax_for_vscode": "cd node_modules/winax && node-gyp rebuild --target=19.0.17 --arch=x64 --dist-url=https://electronjs.org/headers",
+		"build_winax_for_vscode": "cd node_modules/winax && node-gyp rebuild --target=30.1.2 --arch=x64 --dist-url=https://electronjs.org/headers",
 		"build_vscode_extension": "npm rebuild && npm run build_winax_for_vscode",
 		"pack_extension": "vsce package",
 		"vscode:prepublish": "npm run compile",
@@ -102,7 +102,7 @@
 		"@types/glob": "^7.2.0",
 		"@types/mocha": "^7.0.2",
 		"@types/node": "^18.13.52",
-		"@types/vscode": "^1.73.0",
+		"@types/vscode": "^1.92.0",
 		"@typescript-eslint/eslint-plugin": "^2.34.0",
 		"@typescript-eslint/parser": "^2.34.0",
 		"eslint": "^6.8.0",
