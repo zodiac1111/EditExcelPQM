@@ -85,6 +85,7 @@ export class PowerQueryMCodeReader implements IDisposable {
     queries: Map<string, string>;
     excelFileName!: string;
     pqmFileName: string;
+    pqmFolderName: string="";
     sourceType: SourceType;
     excelRegistry: ExcelRegistry;
     readonly delimiter1: string = "//######";
@@ -103,7 +104,8 @@ export class PowerQueryMCodeReader implements IDisposable {
         if (fileName.toLowerCase().match(xls_regexp)) {
             this.sourceType = SourceType.Excel;
             this.pqmFileName = fileName.toLowerCase().replace(xls_regexp, ".m");
-            this.excelFileName = fileName
+            this.pqmFolderName = fileName.toLowerCase().replace(xls_regexp, "");
+            this.excelFileName = fileName;
         } else if (fileName.toLowerCase().match(m_regexp)) {
             this.sourceType = SourceType.M;
             this.pqmFileName = fileName;
@@ -144,12 +146,13 @@ export class PowerQueryMCodeReader implements IDisposable {
         let buffer: string[] = [];
         let mFolder: string = this.pqmFileName;
 
+        console.log(`mFolder=${mFolder}`)
         if (!fs.existsSync(mFolder)) {
             fs.mkdirSync(mFolder);
         }
 
         for (let [name, query] of this.queries) {
-            let subQueryFlieName: string = `${this.pqmFileName}/${name}.m`;
+            let subQueryFlieName: string = `${this.pqmFolderName}/${name}.m`;
            
             let newLine = this.delimiter1 + name + this.delimiter2 + query + "\n\n";
             // buffer.push(newLine);
