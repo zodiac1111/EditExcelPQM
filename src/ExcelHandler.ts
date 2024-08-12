@@ -157,7 +157,7 @@ export class PowerQueryMCodeReader implements IDisposable {
     }
 
     importFromFile(): void {
-        let queries = new Map();
+        this.queries = new Map();
         const fileList = fs.readdirSync(this.pqmFolderName);
 
         for (let file of fileList) {
@@ -165,7 +165,6 @@ export class PowerQueryMCodeReader implements IDisposable {
             let queryContent: string = fs.readFileSync(path.join(this.pqmFolderName, file), "utf8");
             this.queries.set(queryName, queryContent.trim());
         }
-        this.queries = queries;
     }
 
     exportToExcel(): void {
