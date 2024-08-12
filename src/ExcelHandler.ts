@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-
+import * as path from 'path';
 
 export function activate_winax() {
     var winax = require('winax'); // required to define ActiveXObject
@@ -85,6 +85,7 @@ export class PowerQueryMCodeReader implements IDisposable {
     queries: Map<string, string>;
     excelFileName!: string;
     pqmFileName: string;
+    pqmFolderName: string = "";
     sourceType: SourceType;
     excelRegistry: ExcelRegistry;
     readonly delimiter1: string = "//######";
@@ -103,7 +104,8 @@ export class PowerQueryMCodeReader implements IDisposable {
         if (fileName.toLowerCase().match(xls_regexp)) {
             this.sourceType = SourceType.Excel;
             this.pqmFileName = fileName.toLowerCase().replace(xls_regexp, ".m");
-            this.excelFileName = fileName
+            this.pqmFolderName = fileName.toLowerCase().replace(xls_regexp, "");
+            this.excelFileName = fileName;
         } else if (fileName.toLowerCase().match(m_regexp)) {
             this.sourceType = SourceType.M;
             this.pqmFileName = fileName;
@@ -141,39 +143,29 @@ export class PowerQueryMCodeReader implements IDisposable {
 
     exportToFile(): void {
         console.log("Save to file");
-        let buffer: string[] = [];
-        let mFolder: string = this.pqmFileName;
+        let mFolder: string = this.pqmFolderName;
+        fs.rmSync(mFolder, { recursive: true, force: true });
 
         if (!fs.existsSync(mFolder)) {
             fs.mkdirSync(mFolder);
         }
 
         for (let [name, query] of this.queries) {
-            let subQueryFlieName: string = `${this.pqmFileName}/${name}.m`;
-           
-            let newLine = this.delimiter1 + name + this.delimiter2 + query + "\n\n";
-            // buffer.push(newLine);
-            fs.writeFileSync(subQueryFlieName, newLine), "utf8";
+            let subQueryFlieName: string = `${this.pqmFolderName}/${name}.m`;
+            fs.writeFileSync(subQueryFlieName, query), "utf8";
         }
-        // fs.writeFileSync(this.pqmFileName, buffer.join("")), "utf8";
     }
 
     importFromFile(): void {
-        let content: string = fs.readFileSync(this.pqmFileName, "utf8");
+        let queries = new Map();
+        const fileList = fs.readdirSync(this.pqmFolderName);
 
-        let queries = content.split(this.delimiter1);
-        console.log("Read " + queries.length.toString() + " queries");
-        this.queries = new Map();
-        let delimiter = this.delimiter2.trim();
-        for (let queryWithName of queries) {
-            let del2pos = queryWithName.indexOf(delimiter);
-            if (del2pos == -1) {
-                continue;
-            }
-            let name: string = queryWithName.substring(0, del2pos).trim();
-            let query: string = queryWithName.substring(delimiter.length + del2pos, queryWithName.length).trim();
-            this.queries.set(name, query.trim());
+        for (let file of fileList) {
+            let queryName: string = file.substring(0, file.length - 2); // remove ".m" in file name
+            let queryContent: string = fs.readFileSync(path.join(this.pqmFolderName, file), "utf8");
+            this.queries.set(queryName, queryContent.trim());
         }
+        this.queries = queries;
     }
 
     exportToExcel(): void {
